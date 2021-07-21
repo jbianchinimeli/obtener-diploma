@@ -1,5 +1,6 @@
 package com.digitalhouse.obtenerdiploma.dto;
 
+import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Validated
+@AllArgsConstructor
 public class StudentDTO {
     @NotNull(message = "El nombre del alumno no puede estar vacio")
     @Pattern(regexp = "^[A-Z].*", message = "El nombre del alumno debe comenzar con mayuscula")

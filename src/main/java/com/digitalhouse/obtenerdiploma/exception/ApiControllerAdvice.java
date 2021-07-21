@@ -21,6 +21,16 @@ public class ApiControllerAdvice {
         return new ResponseEntity<>(error, error.getStatus());
     }
 
+    @ExceptionHandler(ApplicationException.class)
+    @ResponseBody
+    public ResponseEntity<ErrorDTO> handlerException(ApplicationException exception) {
+        Map<String,String> messages = new HashMap<>();
+        messages.put("Error description", exception.getMessage());
+        ErrorDTO error = new ErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR, "Error interno del sistema", null);
+
+        return new ResponseEntity<>(error, error.getStatus());
+    }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseBody
     public ResponseEntity<ErrorDTO> handlerException(HttpMessageNotReadableException exception) {

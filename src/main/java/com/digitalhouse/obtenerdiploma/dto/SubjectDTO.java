@@ -1,10 +1,12 @@
 package com.digitalhouse.obtenerdiploma.dto;
 
+import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.*;
 
 @Validated
+@AllArgsConstructor
 public class SubjectDTO {
     @NotNull(message = "El nombre de la materia no puede estar vacio")
     @Pattern(regexp = "^[A-Z].*", message = "El nombre de la materia debe comenzar con mayuscula")

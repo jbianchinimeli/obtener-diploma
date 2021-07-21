@@ -3,11 +3,17 @@ package com.digitalhouse.obtenerdiploma.service;
 import com.digitalhouse.obtenerdiploma.dto.CertificateDTO;
 import com.digitalhouse.obtenerdiploma.dto.StudentDTO;
 import com.digitalhouse.obtenerdiploma.dto.SubjectDTO;
+import com.digitalhouse.obtenerdiploma.exception.ApplicationException;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class CertificateServiceImpl implements CertificateService {
     public CertificateDTO analyzeNotes(StudentDTO notes) {
+        if (Objects.isNull(notes)) {
+            throw new ApplicationException("The student is null");
+        }
         CertificateDTO response = new CertificateDTO(notes);
         response.setAverage(calculateAverage(notes));
         response.setMessage(writeDiploma(notes));
@@ -15,6 +21,9 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     private Double calculateAverage(StudentDTO notes) {
+        if(Objects.isNull(notes.getSubjects())){
+            throw new ApplicationException("Student subject list is null");
+        }
         int sum = notes.getSubjects().stream().mapToInt(SubjectDTO::getNote).sum();
         return sum / (double) notes.getSubjects().size();
     }
